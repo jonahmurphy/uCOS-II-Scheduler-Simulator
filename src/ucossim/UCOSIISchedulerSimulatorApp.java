@@ -24,6 +24,7 @@ package ucossim;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +32,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
@@ -42,6 +44,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -53,7 +57,7 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 	private static final String RUNNING_TASK_LBL_PREFIX = "HIGHEST PRIORITY TASK RUNNING: ";
 	private static final int OSRDYGRP_BIT_WIDTH = 8;   // The number of bits in the the OSReadyGrp
 	protected static final int IDLE_TASK_PRIO = OSRDYGRP_BIT_WIDTH * OSRDYGRP_BIT_WIDTH -1;
-	private static int MAX_TICK_INCREMENTS = 80;       // The number of increments that make up a Tick
+	private static int MAX_TICK_INCREMENTS = 83;       // The number of increments that make up a Tick
 	private static int TICK_INCREMENT_TIME_MS = 20;    // The length of a tick increment in ms
 	
 	private Timer tickIncrementTimer;                  // A timer to trigger an event every time a tick increment expires
@@ -103,6 +107,9 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 	 * 
 	 */
 	public void initUI() {
+		//setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		
 		SpinnerModel taskSpinnerModel = new SpinnerNumberModel(0, 0, IDLE_TASK_PRIO, 1);
 		taskSpinner = new JSpinner(taskSpinnerModel);
 	    
@@ -116,10 +123,19 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 		// create ui table elements..
 		OSRdyTblDisplayPanels = new OSRdyTblElement[OSRDYGRP_BIT_WIDTH][OSRDYGRP_BIT_WIDTH];
 		OSRdyGrpDisplayPanels = new OSTblElement[OSRDYGRP_BIT_WIDTH];
-
+		
 		//Show the incremental progress of a timer tick..
 		timeTickLbl = new JLabel("");
-
+		
+		//create a bold font..
+		Font boldLabelFont = new Font(timeTickLbl.getFont().getName(),Font.BOLD,timeTickLbl.getFont().getSize());
+		
+		JLabel osRdyGrpLbl = new JLabel("OSRdyGrp");
+		JLabel osRdyTblLbl =  new JLabel("OSRdyTbl");	
+		osRdyGrpLbl.setFont(boldLabelFont);
+		osRdyTblLbl.setFont(boldLabelFont);
+		
+  
 		// Create OSRdyGrp ui elements..
 		OSRdyGrpPanel.add(new EmptyCell(Color.WHITE));
 		OSRdyGrpPanel.add(new JColorLabel(Color.WHITE, " "));
@@ -148,24 +164,28 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 				OSRdyTblDisplayPanels[row][column].addMouseListener(new OSRdyTblMouseAdapter());
 			}
 		}
+	
 
 		//Add all UI elements to the main panel
 		mainPanel = new JPanel(new MigLayout("", "[grow][grow][grow][grow]"));
 		mainPanel.setBackground(Color.WHITE);
 
-		mainPanel.add(new JLabel("OSRdyGrp"), "span 2");
-		mainPanel.add(new JLabel("OSRdyTbl"), "span 2, wrap");
+		mainPanel.add(osRdyGrpLbl, "span 2");
+		mainPanel.add(osRdyTblLbl, "span 2, wrap");
 
 		mainPanel.add(OSRdyGrpPanel);
 		mainPanel.add(arrowsPanel);
 		mainPanel.add(OSRdyTblPanel, "span 2,wrap");
 
 		runningTaskLbl = new JLabel(RUNNING_TASK_LBL_PREFIX);
+		runningTaskLbl.setFont(boldLabelFont);
 		runningTaskLbl.setForeground(new Color(0, 0, 255));
 		mainPanel.add(runningTaskLbl, "cell 1 2");
 		mainPanel.add(timeTickLbl, "span 2, wrap");
 
-		mainPanel.add(new JLabel(" Task #"));
+		JLabel taskNumberLbl = new JLabel("Task #");
+		taskNumberLbl.setFont(boldLabelFont);
+		mainPanel.add(taskNumberLbl);
 		mainPanel.add(taskSpinner, "grow");
 		mainPanel.add(enableOrDisableTaskBtn, "grow, span 2, wrap");
 		//mainPanel.add(disableTaskBtn, "grow, wrap");
@@ -321,6 +341,21 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 			super("");
 			setBackground(color);
 			setOpaque(true);
+		}
+	}
+	
+	
+	private void setLookAndFeel(String lookAndFeel) {
+		try {
+			UIManager.setLookAndFeel(lookAndFeel);
+		} catch (ClassNotFoundException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} catch (InstantiationException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} catch (IllegalAccessException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} catch (UnsupportedLookAndFeelException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 }
