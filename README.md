@@ -18,6 +18,8 @@ Operation
 
 - Hovering over squares in the OSRdyTbl provides tool tips with information such as the task priority and it's state i.e weather its running, stopped, enabled or disaabled.
 - Tasks can be enabled / disabled either by using the spinner and the enable / disable button or by clicking on the squares in the OSRdyTbl
+
+
 Dependencies 
 ------------
 
