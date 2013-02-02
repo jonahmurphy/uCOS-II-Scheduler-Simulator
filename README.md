@@ -16,7 +16,7 @@ Operation
 - A green square indicates that an element is enabled
 - A red element indicates that an element is disabled
 
-- Hovering over squares in the OSRdyTbl provides tool tips with information such as the task priority and it's state i.e weather its running, stopped, enabled or disaabled.
+- Hovering over squares in the OSRdyTbl provides tool tips with information such as the task priority and it's state i.e weather its running, stopped, enabled or disabled.
 - Tasks can be enabled / disabled either by using the spinner and the enable / disable button or by clicking on the squares in the OSRdyTbl
 
 
