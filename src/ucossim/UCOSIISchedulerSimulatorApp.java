@@ -55,14 +55,14 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 	
 	//simulator related constants
 	private static final String RUNNING_TASK_LBL_PREFIX = " HIGHEST PRIORITY TASK RUNNING: ";
-	private static final int OSRDYGRP_BIT_WIDTH = 8;   // The number of bits in the the OSReadyGrp
+	private static final int OSRDYGRP_BIT_WIDTH = 8;	// The number of bits in the the OSReadyGrp
 	protected static final int IDLE_TASK_PRIO = OSRDYGRP_BIT_WIDTH * OSRDYGRP_BIT_WIDTH -1;
-	private static int MAX_TICK_INCREMENTS = 83;       // The number of increments that make up a Tick
-	private static int TICK_INCREMENT_TIME_MS = 20;    // The length of a tick increment in ms
+	private static int MAX_TICK_INCREMENTS = 83;		// The number of increments that make up a Tick
+	private static int TICK_INCREMENT_TIME_MS = 20;		// The length of a tick increment in ms
 	
-	private Timer tickIncrementTimer;                  // A timer to trigger an event every time a tick increment expires
-									                   //triggering an event on a increment of tick allows us to update progress bar for visual effect..
-	private int nIncrementCurrent = 0;                 // Keeps track of what tick increment were at
+	private Timer tickIncrementTimer;					// A timer to trigger an event every time a tick increment expires
+														//triggering an event on a increment of tick allows us to update progress bar for visual effect..
+	private int nIncrementCurrent = 0;					// Keeps track of what tick increment were at
 	private UCOSIIKernel kernel;
 	
 	//UI related Constants
@@ -75,10 +75,10 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 	private JPanel mainPanel,  OSRdyGrpPanel, arrowsPanel, OSRdyTblPanel;
 	private OSTblElement OSRdyGrpDisplayPanels[];   
 	private OSTblElement OSRdyTblDisplayPanels[][];
-	private JSpinner taskSpinner;   		          //TextField to enter a tasks priority to be enabled/disabled 
-	private JButton enableOrDisableTaskBtn;     	  //button to enable / disable a task which is defined using the taskSpinner
-	private JLabel timeTickLbl;					      //Show the incremental progress of a timer tick..
-	private JLabel runningTaskLbl;                    //label to show which is the current task running
+	private JSpinner taskSpinner;						//TextField to enter a tasks priority to be enabled/disabled 
+	private JButton enableOrDisableTaskBtn;				//button to enable / disable a task which is defined using the taskSpinner
+	private JLabel timeTickLbl;							//Show the incremental progress of a timer tick..
+	private JLabel runningTaskLbl;						//label to show which is the current task running
 
 	private static Logger logger = Logger.getLogger(UCOSIISchedulerSimulatorApp.class.getName());
 
@@ -107,12 +107,11 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 	 * 
 	 */
 	public void initUI() {
-		//setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		
 		SpinnerModel taskSpinnerModel = new SpinnerNumberModel(0, 0, IDLE_TASK_PRIO, 1);
 		taskSpinner = new JSpinner(taskSpinnerModel);
-	    
+		
 		enableOrDisableTaskBtn = new JButton("Enable / Disable Task");
 
 		// set up simulators elements...
@@ -134,8 +133,7 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 		JLabel osRdyTblLbl =  new JLabel("OSRdyTbl");	
 		osRdyGrpLbl.setFont(boldLabelFont);
 		osRdyTblLbl.setFont(boldLabelFont);
-		
-  
+		 
 		// Create OSRdyGrp ui elements..
 		OSRdyGrpPanel.add(new EmptyCell(Color.WHITE));
 		OSRdyGrpPanel.add(new JColorLabel(Color.WHITE, " "));
@@ -188,8 +186,7 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 		mainPanel.add(taskNumberLbl);
 		mainPanel.add(taskSpinner, "grow");
 		mainPanel.add(enableOrDisableTaskBtn, "grow, span 2, wrap");
-		//mainPanel.add(disableTaskBtn, "grow, wrap");
-	    add(mainPanel);
+		add(mainPanel);
 	
 		//bind action listnerers
 		enableOrDisableTaskBtn.addActionListener(new ActionListener() {		
