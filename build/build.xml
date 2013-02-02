@@ -3,7 +3,7 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <target name="create_run_jar">
-        <jar destfile="E:/eclipse_workspaces/java_eclipse_workspace/uCOS-II-Scheduler-Simulator/build/UCOSIISchedulerSimulatorApp.jar">
+        <jar destfile=". /build/UCOSIISchedulerSimulatorApp.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
                 <attribute name="Rsrc-Main-Class" value="ucossim.UCOSIISchedulerSimulatorApp"/>
@@ -11,8 +11,8 @@
                 <attribute name="Rsrc-Class-Path" value="./ miglayout-4.0-swing.jar"/>
             </manifest>
             <zipfileset src="jar-in-jar-loader.zip"/>
-            <fileset dir="E:/eclipse_workspaces/java_eclipse_workspace/uCOS-II-Scheduler-Simulator/bin"/>
-            <zipfileset dir="E:\eclipse_workspaces\java_eclipse_workspace\uCOS-II-Scheduler-Simulator\lib" includes="miglayout-4.0-swing.jar"/>
+            <fileset dir="bin"/>
+            <zipfileset dir="lib" includes="miglayout-4.0-swing.jar"/>
         </jar>
     </target>
 </project>

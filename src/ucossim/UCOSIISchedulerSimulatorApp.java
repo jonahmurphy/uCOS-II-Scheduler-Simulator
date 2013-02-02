@@ -54,7 +54,7 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 	private static final long serialVersionUID = 8876216890917889822L;
 	
 	//simulator related constants
-	private static final String RUNNING_TASK_LBL_PREFIX = "HIGHEST PRIORITY TASK RUNNING: ";
+	private static final String RUNNING_TASK_LBL_PREFIX = " HIGHEST PRIORITY TASK RUNNING: ";
 	private static final int OSRDYGRP_BIT_WIDTH = 8;   // The number of bits in the the OSReadyGrp
 	protected static final int IDLE_TASK_PRIO = OSRDYGRP_BIT_WIDTH * OSRDYGRP_BIT_WIDTH -1;
 	private static int MAX_TICK_INCREMENTS = 83;       // The number of increments that make up a Tick
@@ -183,7 +183,7 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 		mainPanel.add(runningTaskLbl, "cell 1 2");
 		mainPanel.add(timeTickLbl, "span 2, wrap");
 
-		JLabel taskNumberLbl = new JLabel("Task #");
+		JLabel taskNumberLbl = new JLabel(" Task #");
 		taskNumberLbl.setFont(boldLabelFont);
 		mainPanel.add(taskNumberLbl);
 		mainPanel.add(taskSpinner, "grow");
