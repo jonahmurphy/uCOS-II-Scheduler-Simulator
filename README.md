@@ -1,8 +1,8 @@
 uCOS-II Scheduler Simulator
 ===========================
 
-A simple Java Swing based application to simulate and visualize the operation of the scheduler in the [uCOS-II](http://en.wikipedia.org/wiki/MicroC/OS-II) RTOS,
-developed as an assignment for an Embedded Systems module. 
+A simple Java Swing based application to simulate and visualize the operation of the scheduler in the [uCOS-II](http://en.wikipedia.org/wiki/MicroC/OS-II) RTOS.
+
 >uCOS-II is a priority-based pre-emptive real-time multitasking operating system kernel for microprocessors,
 >written mainly in the C programming language.
 
