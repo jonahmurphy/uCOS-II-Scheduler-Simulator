@@ -16,6 +16,8 @@ Operation
 - A green square indicates that an element is enabled
 - A red element indicates that an element is disabled
 
+- Hovering over squares in the OSRdyTbl provides tool tips with information such as the task priority and it's state i.e weather its running, stopped, enabled or disaabled.
+
 Dependencies 
 ------------
 
