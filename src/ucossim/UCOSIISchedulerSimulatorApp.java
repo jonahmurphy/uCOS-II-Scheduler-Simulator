@@ -23,7 +23,6 @@
 package ucossim;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -34,23 +33,20 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
-import javax.swing.JApplet;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
 
-/**
- * 
- * @author jonah
- *
- */
-public class UCOSIISchedulerSimulatorApp extends JApplet implements Runnable {	
+
+public class UCOSIISchedulerSimulatorApp extends JFrame{	
 	private static final long serialVersionUID = 8876216890917889822L;
 	
 	//simulator related constants
@@ -66,6 +62,7 @@ public class UCOSIISchedulerSimulatorApp extends JApplet implements Runnable {
 	private UCOSIIKernel kernel;
 	
 	//UI related Constants
+	private static final String APP_NAME = "uCOS-II Scheduler Simulator";
 	private static final int APP_WIDTH = 585;
 	private static final int APP_HEIGHT = 357;
 
@@ -81,13 +78,31 @@ public class UCOSIISchedulerSimulatorApp extends JApplet implements Runnable {
 
 	private static Logger logger = Logger.getLogger(UCOSIISchedulerSimulatorApp.class.getName());
 
-	// Set up the UI
-	@Override
-	public void init() {
-		Container container = getContentPane();
-		setSize(new Dimension(APP_WIDTH, APP_HEIGHT));
-
-
+	/*
+	 * Main entry point
+	 */
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				UCOSIISchedulerSimulatorApp app = new UCOSIISchedulerSimulatorApp();
+				app.setVisible(true);
+			}
+		});
+		
+	}
+	
+	/**
+	 * 
+	 */
+	UCOSIISchedulerSimulatorApp() {
+		initUI();
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public void initUI() {
 		SpinnerModel taskSpinnerModel = new SpinnerNumberModel(0, 0, IDLE_TASK_PRIO, 1);
 		taskSpinner = new JSpinner(taskSpinnerModel);
 	    
@@ -154,7 +169,7 @@ public class UCOSIISchedulerSimulatorApp extends JApplet implements Runnable {
 		mainPanel.add(taskSpinner, "grow");
 		mainPanel.add(enableOrDisableTaskBtn, "grow, span 2, wrap");
 		//mainPanel.add(disableTaskBtn, "grow, wrap");
-		container.add(mainPanel);
+	    add(mainPanel);
 	
 		//bind action listnerers
 		enableOrDisableTaskBtn.addActionListener(new ActionListener() {		
@@ -165,11 +180,14 @@ public class UCOSIISchedulerSimulatorApp extends JApplet implements Runnable {
 				
 			}
 		});
-	}
-	
-	//Initialize the simulator..
-	@Override
-	public void start() {
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setMinimumSize(new Dimension(APP_WIDTH, APP_HEIGHT));
+		setSize(new Dimension(APP_WIDTH, APP_HEIGHT));
+		setResizable(false);
+		setTitle(APP_NAME);
+		pack();
+		
 		kernel = new UCOSIIKernel();
 		
 		//The idle task must always be enabled!
@@ -178,15 +196,13 @@ public class UCOSIISchedulerSimulatorApp extends JApplet implements Runnable {
 		OSRdyTblDisplayPanels[OSRDYGRP_BIT_WIDTH-1][OSRDYGRP_BIT_WIDTH-1].setElement();
 
 		tickIncrementTimer = new Timer();
-		tickIncrementTimer.schedule(new TickIncrementHandler(),TICK_INCREMENT_TIME_MS);
-	}
-
-	@Override
-	public void run() {
-		//Nothing to do here!
+		tickIncrementTimer.schedule(new TickIncrementHandler(),TICK_INCREMENT_TIME_MS);	
 	}
 	
-	
+	/**
+	 * 
+	 * @param priority
+	 */
 	public void toggleTaskState(int priority) {	
 		if(!handlePriorityError(priority)) {
 			return;
