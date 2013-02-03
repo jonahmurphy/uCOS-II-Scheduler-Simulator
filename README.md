@@ -9,8 +9,8 @@ A simple Java Swing based application to simulate and visualize the operation of
 ![uCOS-II Scheduler Simulator Screenshot](https://github.com/murjay/uCOS-II-Scheduler-Simulator/raw/master/doc/ucossim_screenshot.png)
 
 
-Operation
----------
+Usage
+-----
 
 - A blue square in the OSRdyTbl indcates that the task associated with that priority is running
 - A green square indicates that an element is enabled
