@@ -64,10 +64,11 @@ public class UCOSIIKernel {
 		
 	public UCOSIIKernel() {  }
 	
-	//Returns the lowest priority ready..
+	//Returns the highest priority ready..
+	//Lower number == higher priority
 	public int OS_Sched() {
-		int y   = OSUnMapTbl[OSRdyGrp];				//Get the lowest row byte with a bit set 
-		int x   = OSUnMapTbl[OSRdyTbl[y]];			//Get the col i.e the lowest bit set in the row byte..
+		int y   = OSUnMapTbl[OSRdyGrp];			//Get the lowest row byte with a bit set 
+		int x   = OSUnMapTbl[OSRdyTbl[y]];		//Get the col i.e the lowest bit set in the row byte..
 		OSPrioHighRdy = (byte)((y << 3) + x);		//Convert from (row,col) to a unique place value that corresponds to a priority
 		return OSPrioHighRdy;
 	}
@@ -88,7 +89,7 @@ public class UCOSIIKernel {
 
 	public void disableTask(int prio) {
 		if((OSRdyTbl[prio >> 3] &= ~OSMapTbl[prio & 0x07]) == 0) {	//if there is no other priority set in that row
-			OSRdyGrp &= ~OSMapTbl[prio >> 3];						//clear the OSRdyGrp bit for that row..
+			OSRdyGrp &= ~OSMapTbl[prio >> 3];			//clear the OSRdyGrp bit for that row..
 		}
 	}
 }
