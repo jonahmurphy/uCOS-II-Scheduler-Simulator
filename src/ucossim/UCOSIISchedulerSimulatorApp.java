@@ -60,9 +60,9 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 	private static int MAX_TICK_INCREMENTS = 83;		// The number of increments that make up a Tick
 	private static int TICK_INCREMENT_TIME_MS = 20;		// The length of a tick increment in ms
 	
-	private Timer tickIncrementTimer;					// A timer to trigger an event every time a tick increment expires
-														//triggering an event on a increment of tick allows us to update progress bar for visual effect..
-	private int nIncrementCurrent = 0;					// Keeps track of what tick increment were at
+	private Timer tickIncrementTimer;			// A timer to trigger an event every time a tick increment expires
+								//triggering an event on a increment of tick allows us to update progress bar for visual effect..
+	private int nIncrementCurrent = 0;			// Keeps track of what tick increment were at
 	private UCOSIIKernel kernel;
 	
 	//UI related Constants
@@ -75,10 +75,10 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 	private JPanel mainPanel,  OSRdyGrpPanel, arrowsPanel, OSRdyTblPanel;
 	private OSTblElement OSRdyGrpDisplayPanels[];   
 	private OSTblElement OSRdyTblDisplayPanels[][];
-	private JSpinner taskSpinner;						//TextField to enter a tasks priority to be enabled/disabled 
+	private JSpinner taskSpinner;					//TextField to enter a tasks priority to be enabled/disabled 
 	private JButton enableOrDisableTaskBtn;				//button to enable / disable a task which is defined using the taskSpinner
-	private JLabel timeTickLbl;							//Show the incremental progress of a timer tick..
-	private JLabel runningTaskLbl;						//label to show which is the current task running
+	private JLabel timeTickLbl;					//Show the incremental progress of a timer tick..
+	private JLabel runningTaskLbl;					//label to show which is the current task running
 
 	private static Logger logger = Logger.getLogger(UCOSIISchedulerSimulatorApp.class.getName());
 
@@ -327,8 +327,7 @@ public class UCOSIISchedulerSimulatorApp extends JFrame{
 	}
 	
 	/**
-	 * Dirty hack
-	 * - a space filler for empty cells in GridLayout
+	 * Space filler for empty cells in GridLayout
 	 *
 	 */
 	private class EmptyCell extends JLabel {
