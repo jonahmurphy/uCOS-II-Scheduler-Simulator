@@ -25,7 +25,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.ToolTipManager;
 
 //Class to represent an element of the  OSRdyTblElement on a swing ui.
-//simply adds some tool tips relevant to the OSRdyTblElement
+//simply extends OSTblElement to add relevant tool tips
 public class OSRdyTblElement extends OSTblElement {
 	private static final long serialVersionUID = 264984211990601594L;
 
